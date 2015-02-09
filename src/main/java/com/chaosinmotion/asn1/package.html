@@ -1,0 +1,46 @@
+<html>
+<head><title>ASN.1 Library Overview</title></head>
+<body>
+<p>The ASN.1 Encoding Library provides a basic framework for building ASN.1
+parsers and writers that can read and write ASN.1 formatted packets. The framework
+provides a set of primitive objects which can be used to build a hierarchy of nodes
+that represent a packet to send, and a parser framework for parsing incoming
+requests.</p>
+<p>To build an outgoing request, you would assemble the request by assembling the
+required primitive components or compound components, then call the writeElement
+method to write the ASN.1 formatted packet to the output stream. Custom BER Tag
+objects are specified using either the BerTag (if the tag value is a compound
+or non-implicit tag type), or by setting the tag field of the constructor when
+constructing the primitive type.</p>
+<p>Use the Tag class to set the various tag type constants; the encoding of
+tag types within a primitive type use the high two bits of a 32-bit integer,
+so the underlying assumption is that tag values range from 0 to 2**31-1 in
+value.</p>
+<p>To parse an incoming request you would override the BerParser class. This
+class contains a number of abstract methods which would then need to be written
+to construct the correct BerNode object depending on the tag type that has
+currently been read from the input stream. Universal types may be constructed
+for you by passing to the BerTag.createUniversal method; this method knows how
+to parse all universal types.</p>
+<p>For some protocols, such as LDAP, the type of object that needs to be
+constructed when reading certain implicit tag types is dependent upon where in
+an incoming packet the request lies. In order to handle this sort of protocol,
+the BerParser class contains four callback methods that must be provided; two
+that mark the start and end of a packet, and two which mark the start and end
+of a tag for processing. Using this you can construct a stack-based mechanism
+which can track the tag identifiers, so it is possible to determine what sort
+of overall tag is being built, so that context-sensitive Application tags can
+be properly built.</p>
+
+<p><b>License</b></p>
+<p>Copyright 2007 William Woody, All Rights Reserved.</p>
+					    <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
+						<ul>
+					        <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+					        <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</li>
+					        <li>Neither the name of Chaos In Motion nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
+						</ul>
+					    <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+					    <p>Contact William Woody at woody@alumni.caltech.edu or at woody@chaosinmotion.com. Chaos In Motion is at http://www.chaosinmotion.com</p>
+</body>
+</html>
