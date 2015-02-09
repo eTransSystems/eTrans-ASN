@@ -101,7 +101,7 @@ public class BerBitString extends JacNode
     public void writeElement(BerOutputStream stream) throws IOException
     {
     	if ( ! isInitialized ) {	//added by Fatih Batuk
-    		throw new AsnEncodingException("\n >> BIT STRING is uninitialized(empty) and will not be encoded ! (If exists)BýtString name is : " + getName());
+    		throw new AsnEncodingException("\n >> BIT STRING is uninitialized(empty) and will not be encoded ! (If exists)BitString name is : " + getName());
     	}
     	
     	/*

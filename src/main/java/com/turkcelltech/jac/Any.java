@@ -42,7 +42,7 @@ import java.io.IOException;
  * " This class is not a true representation of an ANY,
  *   as it does not understand the DEFINED BY
  *   syntax "
- * This class is not tested. You should care about this ýf you are using ANY data type.
+ * This class is not tested. You should care about this if you are using ANY data type.
  *
  * @deprecated ANY is a deprecated ASN.1 Structured Type. It has been replaced with X.680 Open Type.
  *

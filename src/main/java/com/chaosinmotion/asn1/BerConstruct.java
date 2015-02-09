@@ -78,7 +78,7 @@ public abstract class BerConstruct extends JacNode
         int readTag;
         ReadSequence seq = new ReadSequence(stream);
         while (0 != (readTag = seq.readBerTag())) {
-            fList.add(parser.read(readTag,stream));	// modified by Fatýh Batuk (state variable is deleted)
+            fList.add(parser.read(readTag,stream));	// modified by Fatih Batuk (state variable is deleted)
         }
     }
     
@@ -598,7 +598,7 @@ public abstract class BerConstruct extends JacNode
     
     /**
 	 * (This method is not necessary now..  Optional to use..)
-	 * <p>Fýnds and updates the given element in the arrayList
+	 * <p>Finds and updates the given element in the arrayList
 	 *<p>
 	 * @author Fatih Batuk
 	 */
