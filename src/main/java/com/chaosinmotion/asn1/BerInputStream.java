@@ -389,11 +389,16 @@ public class BerInputStream extends LengthInputStream
                     ++start;
                 }
             }
-            m = readByte();
-            for (j = 0; j < 8-b; ++j) {
-                if (0 != (m & (0x80 >> j))) set.set(start);
-                ++start;
+            // JE Added to handle bit string of length 1.
+            if( length != 0) {
+                m = readByte();
+                for (j = 0; j < 8-b; ++j) {
+                    if (0 != (m & (0x80 >> j))) set.set(start);
+                    ++start;
+                }
             }
+  
+
         } else {
             /*
              * The current tag is compound. Read all of the components

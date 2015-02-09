@@ -33,6 +33,7 @@ package	com.turkcelltech.jac;
 */
 
 import java.io.IOException;
+
 import com.chaosinmotion.asn1.*;
 
 /**
@@ -110,7 +111,7 @@ public class Sequence extends BerSequence implements JacConstruct
 	 * is used when decoding a constructed object (Sequence, Set, SequenceOf or SetOf) 
 	 * after reading the asn1 tag number from the input stream
 	 */
-	@Override
+	//@Override
 	public void readElement(int tag, BerInputStream in) throws IOException {  
 		AutoParser parser = new AutoParser(size());
 		BerSequence generatedSeq = new BerSequence(tag, parser, in, this);
@@ -163,7 +164,9 @@ public class Sequence extends BerSequence implements JacConstruct
 				
 				//set the status variable
 				status = false;
-				if(generatedNode.getTag() == currentNode.getTag()) {
+				//JE if(generatedNode.getTag() == currentNode.getTag()) {
+				int cTag = currentNode.getTag() & Tag.UNCONSTRUCTED_MASK;  //JE
+				if(generatedNode.getTag() == cTag) {	                   //JE
 					status = true;
 				}
 				else {

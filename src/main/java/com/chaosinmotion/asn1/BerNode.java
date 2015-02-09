@@ -76,7 +76,8 @@ public abstract class BerNode
      * @author Fatih Batuk
      */
     private int taggingMethod = Tag.IMPLICIT;	//IMPICIT or EXPLICIT : default is IMPLICIT
-    private int tagClass = Tag.UNIVERSAL;		// default is UNIVERSAL   
+    //private int tagClass = Tag.UNIVERSAL;		// default is UNIVERSAL   
+    private int tagClass = Tag.CONTEXT;		// default is CONTEXT   
     
     /**
      * name of the object

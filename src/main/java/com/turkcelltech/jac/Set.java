@@ -110,7 +110,7 @@ public class Set extends BerSet implements JacConstruct
 		 * is used when decoding a constructed object (Sequence, Set, SequenceOf or SetOf) 
 		 * after reading the asn1 tag number from the input stream
 		 */
-		@Override
+		//@Override
 		public void readElement(int tag, BerInputStream in) throws IOException {  
 			AutoParser parser = new AutoParser(size());
 			BerSet generatedSet = new BerSet(tag, parser, in, this);

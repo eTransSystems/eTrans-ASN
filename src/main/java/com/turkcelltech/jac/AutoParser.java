@@ -77,7 +77,7 @@ public class AutoParser {
        	 * 
        	 * -- Fatih Batuk
        	 */
-         tag = tag & Tag.UNCONSTRUCTED_MASK;   
+  	   tag = tag & Tag.UNCONSTRUCTED_MASK;   
     	 
          if (tag == Tag.EOFTYPE) {
         	 int len = stream.readBerLength();
@@ -90,11 +90,14 @@ public class AutoParser {
        BerNode currentNode = null;
        BerNode hold;
        boolean state; 
-       
+	      
        for (int i=0; i<seq.size(); i++) {
     	   //set the state var
     	   state = false;
-    	   if(seq.get(i).getTag() == tag) {
+    	   
+    	   //JE if(seq.get(i).getTag() == tag) {
+       	   int cTag = seq.get(i).getTag()& Tag.UNCONSTRUCTED_MASK;   //JE
+       	   if( cTag == tag) {     //JE
     		   state = true;
     		   currentNode = seq.get(i);
     	   }
