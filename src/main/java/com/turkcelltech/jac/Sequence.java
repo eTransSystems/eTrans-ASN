@@ -170,14 +170,19 @@ public class Sequence extends BerSequence implements JacConstruct
 					status = true;
 				}
 				else {
-					//if there is a choice element which is not tagged and if there is an element inside that choice element which is encoded: 
+                    /*
+                    Commented out by RB - for our usage there is always a matching tag and this code
+                    causes problems with optional choice elements as it gets confused trying to match
+                    to a choice element that should have been in the sequence.
+					//if there is a choice element which is not tagged and if there is an element inside that choice element which is encoded:
 					if (currentNode instanceof Choice) {
 						if((hold=((Choice)currentNode).getNodeIfExists(generatedNode.getTag())) != null ) {
-							currentNode.true_();  	//this is important
+							currentNode.true_(); //this is important
 							currentNode = hold;
 							status = true;
 						}
 					}
+					*/
 				}
 				//continue if status is OK
 				if (status) {

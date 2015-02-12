@@ -165,7 +165,7 @@ public class Choice extends Sequence
 	{
 		currentChoice = getChosenElementWhenThisIsChoice();
 		
-		if (currentChoice == null) 
+		if (currentChoice == null && isOptional == false)
 			throw new AsnFatalException("\n >> You did not set one element of your choice object (Or you have set more than one element). (if exists)name of the problemeatic choice object is: " + getName());
 		
 		return currentChoice;
