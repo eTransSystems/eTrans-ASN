@@ -102,12 +102,17 @@ public class AutoParser {
     		   currentNode = seq.get(i);
     	   }
     	   else {
+               /*
+               Commented out by RB - for our usage there is always a matching tag and this code
+               causes problems with optional choice elements as it gets confused trying to match
+               to a choice element that should have been in the sequence.
     		   if(seq.get(i) instanceof Choice) {
     			   if( (hold=((Choice)(seq.get(i))).getNodeIfExists(tag)) != null) {
     				   state = true;
     				   currentNode = hold;
     			   }
     		   }
+    		   */
     	   }
     	   //check the state var
             if (state) {
