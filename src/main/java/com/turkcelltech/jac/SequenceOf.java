@@ -34,6 +34,8 @@ package	com.turkcelltech.jac;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import com.chaosinmotion.asn1.*;
 
@@ -51,6 +53,7 @@ public class SequenceOf	extends	Sequence
 	private JacNode content ;
 	private int type;
 	
+    private final static String PRIMITIVE_TYPE_PACKAGE =  "com.turkcelltech.jac";
 
 	/**
 	 * Constructs an empty sequence.
@@ -199,7 +202,9 @@ public class SequenceOf	extends	Sequence
 	}
 	
 	protected void checkAndSetList(BerSequence generatedSeq) {
-		if(this.type==Tag.PrimitiveType) {
+        // some classes can directly extend the primitives but we want to cast them to their real
+        // class if they are not one of the basic types in this package.
+		if(this.type==Tag.PrimitiveType && componentType.getPackage().equals(PRIMITIVE_TYPE_PACKAGE)) {
 			 setList(generatedSeq.getList());
 		 }
 		 else {
@@ -227,14 +232,63 @@ public class SequenceOf	extends	Sequence
 						this.addElement(element);
 						this.true_();	//important
 					}
+                }
+                else if(type==Tag.PrimitiveType) {
+                    for(int i=0; i<generatedSeq.size(); i++) {
+                        Constructor cons = componentType.getConstructor();
+                        JacNode element = (JacNode)cons.newInstance();
+                        Object nextNodeValue = getValueByReflection(generatedSeq.get(i));
+                        setValueByReflection( element, nextNodeValue );
+                        this.addElement( element );
+                        this.true_();	//important
+                    }
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	private void setContents (Object value) {
+
+    private Object getValueByReflection( BerNode berNode ) {
+        Object returnValue = null;
+        Class nodeClass = berNode.getClass();
+        Method[] methods = nodeClass.getMethods();
+        for (Method nextMethod : methods) {
+            // assumes there is only
+            if ("getValue".equals( nextMethod.getName())) {
+                try {
+                    returnValue = nextMethod.invoke( berNode );
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+        return returnValue;
+    }
+
+
+    private void setValueByReflection( JacNode jacNode, Object valueToSet ) {
+        Class nodeClass = jacNode.getClass();
+        Method[] methods = nodeClass.getMethods();
+        for (Method nextMethod : methods) {
+            // assumes there is only
+            if ("setValue".equals( nextMethod.getName())) {
+                try {
+                    nextMethod.invoke( jacNode, valueToSet );
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    private void setContents (Object value) {
 		
 		if(value instanceof Class)
 			componentType = (Class)value;
