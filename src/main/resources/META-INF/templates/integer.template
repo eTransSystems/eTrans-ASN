@@ -1,0 +1,71 @@
+@package@
+
+/*
+ * Created by JAC (Java Asn1 Compiler)
+ */
+ 
+import com.turkcelltech.jac.ASN1Integer;
+//import com.chaosinmotion.asn1.Tag;
+
+
+public class @name@ extends ASN1Integer
+{
+	/**
+	* If you have any constraint below, you must obey to the constraints.
+	* If you do not consider the constraints when setting your element, you will get exception.
+	*
+	* To set your object, you can call setValue(..) method. 
+	* To encode/decode your object, just call encode(..) decode(..) methods
+	* See 'TestProject.java' in the project to examine encoding/decoding examples
+	*/
+	
+	@constraints@
+	
+	/**
+	* asn.1 INTEGER constructor to create "uninitialized" object.
+	* setValue() method can be called to set the value of the integer.
+	*/
+	public
+	@name@()
+	{
+		@constructor@
+	}
+
+	/**
+	* asn.1 INTEGER constructor to create "uninitialized" object.
+	* setValue() method can be called to set the value of the integer.
+	*/
+	public
+	@name@(String name)
+	{
+		@constructor@
+		setName(name);
+	}
+	
+	/**
+	* asn.1 INTEGER constructor to create "initialized" object.
+	*/
+	public
+	@name@(long value)
+	{
+		@constructor@
+		setValue(value);
+	}
+	
+	/**
+	* constructor to build ASN1Integer with its value and name.
+	*/
+	public
+	@name@(String name, long value)
+	{
+		@constructor@
+		setValue(value);
+		setName(name);
+	}
+	
+	/*
+	* range constraint setter methods
+	*/
+	
+	@methods@
+}

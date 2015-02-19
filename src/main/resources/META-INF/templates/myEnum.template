@@ -1,0 +1,56 @@
+@package@
+
+/*
+ * Created by JAC (Java Asn1 Compiler)
+ */
+
+import com.turkcelltech.jac.Enumerated;
+//import com.chaosinmotion.asn1.Tag;
+
+
+public class @name@ extends Enumerated
+{
+	/**
+	* To set your ENUMERATED type, just call one of the "setTo_elementName()" methods.
+	* To encode/decode your object, just call encode(..) decode(..) methods
+	* See 'TestProject.java' in the project to examine encoding/decoding examples
+	*/
+	
+	@elementsenum@
+
+	/**
+	* constructs empty ENUMERATED object
+	*/
+	public
+	@name@()
+	{
+		super();
+	}
+	
+	/**
+	* constructs empty ENUMERATED object with its name.
+	*/
+	public
+	@name@(String name)
+	{
+		super(name);
+	}
+	
+	/**
+	* if you want to set your ENUMERATED to a different undefined value, use this constructor.
+	*/
+	public
+	@name@(long value)
+	{
+		super(value);
+	}
+	
+	/**
+	* if you want to set your ENUMERATED to a different undefined value, use this constructor.
+	*/
+	public
+	@name@(String name, long value)
+	{
+		super(name, value);
+	}
+}

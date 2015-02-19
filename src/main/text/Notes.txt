@@ -1,0 +1,4 @@
+Downloaded JavaCC
+Created batch file to run jjtree then javacc
+Making some modifications to the files
+-d C:\Users\Rob\ASN1Compile\jac  -p com.etrans2020  C:\Users\Rob\ASN1Compile\jac\DSRC_R36_Source.ASN C:\Users\Rob\ASN1Compile\jac\SEMI_ASN.1_Structures_2.1.txt

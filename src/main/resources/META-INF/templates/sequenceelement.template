@@ -1,0 +1,40 @@
+public static class @name@ extends Sequence
+{
+	/**
+	 * if you want to set/fill an element below, just call the setValue(..) method over its instance.
+	 *
+	 * To encode/decode your object, just call encode(..) decode(..) methods.
+	 * See 'TestProject.java' in the project to examine encoding/decoding examples
+	 */
+	@elements@
+	
+	/**
+	* asn.1 SEQUENCE constructor
+	*/
+	public
+	@name@()
+	{
+		super();
+		setUpElements();
+	}
+
+	/**
+	* asn.1 SEQUENCE constructor with its name
+	*/
+	public
+	@name@(String name)
+	{
+		super(name);
+		setUpElements();
+	}
+	
+
+	protected void
+	setUpElements()
+	{
+	    int tagNumber = 0;
+		@setupelements@
+	}
+
+    @elementclasses@
+}

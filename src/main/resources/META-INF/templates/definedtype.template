@@ -1,0 +1,36 @@
+@package@
+
+/*
+ * Created by JAC (Java Asn1 Compiler)
+ */
+ 
+import com.turkcelltech.jac.*;
+//import com.chaosinmotion.asn1.Tag;
+
+public class @name@ extends @baseclass@
+{
+	/**
+	* This is a "defined type" class. To initialize your object your should 
+	* call setValue() method. You can not initialize it by constructor.
+	* To encode/decode your object, just call encode(..) decode(..) methods.
+	* See 'TestProject.java' in the project to examine encoding/decoding examples
+	*/
+	
+	/**
+	* constructor to build uninitialized object
+	*/
+	public
+	@name@()
+	{
+		super();
+	}
+	
+	/**
+	* constructor to build uninitialized object
+	*/
+	public
+	@name@(String name)
+	{
+		super(name);
+	}
+}

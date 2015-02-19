@@ -1,0 +1,39 @@
+public static class @name@ extends SequenceOf
+{
+	/**
+	* To add elements to your SequenceOf object, just call the addElement(..) method.
+	* You can only add an element to your SequenceOf object if it is 
+	* an instance of the elementType defined in below constructors.
+	*
+	* To encode/decode your object, just call encode(..) decode(..) methods
+	* See 'TestProject.java' in the project to examine encoding/decoding examples
+	*/
+	
+	/**
+	* Uninitialized SEQUENCE OF constructor 
+	*/
+	public
+	@name@()
+	{
+		super(new @elementtype@("@name@"));
+	}
+	
+	/**
+	* Uninitialized SEQUENCE OF constructor with name
+	*/
+	public
+	@name@(String name)
+	{
+		super(name, new @elementtype@("@name@"));
+	}
+
+	public void addElement( @elementtype@ element ) {
+	    super.addElement( element );
+	}
+
+	public @elementtype@ getElement( int index ) {
+	    return (@elementtype@)get( index );
+	}
+
+	@innerclass@
+}

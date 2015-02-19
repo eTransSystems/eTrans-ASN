@@ -1,0 +1,45 @@
+@package@
+
+/*
+ * Created by JAC (Java Asn1 Compiler)
+ */
+ 
+import com.turkcelltech.jac.*;
+import com.chaosinmotion.asn1.Tag;
+
+public class @name@ extends Set
+{
+	/* 
+	 * if you want to set/fill an element below, just call the setValue() method over its instance.
+	 * To encode/decode your object, just call encode(..) decode(..) methods.
+	 * See 'TestProject.java' in the project to examine encoding/decoding examples
+	 */
+	@elements@
+
+	/**
+	* asn.1 SET constructor
+	*/
+	public
+	@name@()
+	{
+		super();
+		setUpElements();
+	}
+	
+	/**
+	* asn.1 SET constructor with name
+	*/
+	public
+	@name@(String name)
+	{
+		super(name);
+		setUpElements();
+	}
+	
+
+	protected void
+	setUpElements()
+	{
+		@setupelements@
+	}
+}

@@ -1,0 +1,53 @@
+@package@
+
+/*
+ * Created by JAC (Java Asn1 Compiler)
+ */
+ 
+import com.turkcelltech.jac.ObjectID;
+//import com.chaosinmotion.asn1.Tag;
+
+public class @name@ extends ObjectID
+{
+	/*
+	* To set your object you can call "setValue(long[] value)" method.
+	* To encode/decode your object, just call encode(..) decode(..) methods
+	* See 'TestProject.java' in the project to examine encoding/decoding examples
+	*/
+	
+	/**
+	* constructor to create "uninitialized" OID.
+	*/
+	public
+	@name@()
+	{
+		super();
+	}
+
+	/**
+	* constructor to create "uninitialized" OID.
+	*/
+	public
+	@name@(String name)
+	{
+		super(name);
+	}
+	
+	/**
+	* constructor to create "initialized" OID.
+	*/
+	public
+	@name@(long[] value)
+	{
+		super(value);
+	}
+	
+	/**
+	* constructor to create "initialized" OID.
+	*/
+	public
+	@name@(String name, long[] value)
+	{
+		super(name, value);
+	}
+}

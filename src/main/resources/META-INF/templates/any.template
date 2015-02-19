@@ -1,0 +1,29 @@
+@package@
+
+/*
+ * Created by JAC (Java Asn1 Compiler)
+ */
+ 
+import com.turkcelltech.jac.Any;
+//import com.chaosinmotion.asn1.Tag;
+
+public class @name@ extends Any
+{
+	/*
+	* To set your object you can call setValue(..) method. 
+	* To encode/decode your object, just call encode(..) decode(..) methods
+	* See 'TestProject.java' in the project to examine encoding/decoding examples
+	*/
+	
+	public
+	@name@()
+	{
+		super();
+	}
+
+	public
+	@name@(String name)
+	{
+		super(name);
+	}
+}
