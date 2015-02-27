@@ -18,13 +18,36 @@ public class ASTDefinedType extends SimpleNode {
 			if(n instanceof ASTtypereference != true)
 				continue;
 
-			return ((ASTtypereference)n).getClassName().replace('-','_');
+			return ((ASTtypereference)n).getClassName().replace('-', '_');
 		}
 
 		return null;
 	}
 
-	public String
+    public String getBaseClassName()
+    {
+        StringBuilder retVal = new StringBuilder();
+        for(int i = 0; i < jjtGetNumChildren(); i++)
+        {
+            Node n = jjtGetChild(i);
+            if (n instanceof ASTmodulereference) {
+                if(AsnParser.outputPackage != null) {
+                    retVal.append( AsnParser.outputPackage + "." );
+                }
+                retVal.append(((ASTmodulereference)n).jjtGetFirstToken().image.toLowerCase() + ".");
+            }
+
+            if(n instanceof ASTtypereference != true)
+                continue;
+
+            retVal.append ( ((ASTtypereference)n).getClassName().replace('-','_'));
+            return retVal.toString();
+        }
+
+        return null;
+    }
+
+    public String
 	getType()
 	{
 		for(int i = 0; i < jjtGetNumChildren(); i++)
@@ -50,7 +73,7 @@ public class ASTDefinedType extends SimpleNode {
             String right = line.substring(ndx + 1);
             // replace the contents
             line.setLength(0);
-            line.append(left + getClassName() + right);
+            line.append(left + getBaseClassName() + right);
             returnValue = true;
         }
         return returnValue;
