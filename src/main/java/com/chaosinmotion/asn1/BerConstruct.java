@@ -446,7 +446,7 @@ public abstract class BerConstruct extends JacNode
         }
     }
     
-    private void checkInitializedOrNot() {
+    public boolean checkInitializedOrNot() {
     	Iterator it = this.iterator();
     	while (it.hasNext()) {
             BerNode content = (BerNode)it.next();
@@ -462,6 +462,7 @@ public abstract class BerConstruct extends JacNode
             	break;
             }
     	}
+		return this.isInitialized;
     }
     
     //protected visibility: also used in Choice.java

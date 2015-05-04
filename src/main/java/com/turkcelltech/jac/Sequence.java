@@ -147,7 +147,27 @@ public class Sequence extends BerSequence implements JacConstruct
 	 * @author Fatih Batuk
 	 */
 	public void fillSequenceVariables(BerSequence generatedSeq) throws AsnFatalException {
-		
+		fillSequenceVariables( generatedSeq, true );
+	}
+
+	/**
+	 * This method copies values from one sequence to another.
+	 * It does not worry about checking initialization or optional elements.
+	 * @param generatedSeq
+	 * @author Rob Baily
+	 */
+	public void copySequenceVariables(BerSequence generatedSeq) throws AsnFatalException {
+		fillSequenceVariables( generatedSeq, false );
+	}
+
+
+	/**
+	 * This method is used to match and fill the sequence elements
+	 * @param generatedSeq
+	 * @author Fatih Batuk
+	 */
+	private void fillSequenceVariables(BerSequence generatedSeq, boolean checkInitialization) throws AsnFatalException {
+
 		int[] decodedStatus = new int[size()];
 		boolean status;
 		BerNode hold;
@@ -167,7 +187,13 @@ public class Sequence extends BerSequence implements JacConstruct
 				//JE if(generatedNode.getTag() == currentNode.getTag()) {
 				int cTag = currentNode.getTag() & Tag.UNCONSTRUCTED_MASK;  //JE
 				if(generatedNode.getTag() == cTag) {	                   //JE
-					status = true;
+					// figure out if this is a composite node
+					boolean isComposite = generatedNode instanceof BerSequence || generatedNode instanceof BerSet;
+					// figure out whether the initialization status is OK
+					boolean initializationStateOk =  generatedNode.isInitialized || (isComposite && ((BerConstruct)generatedNode).checkInitializedOrNot());
+					if (checkInitialization || initializationStateOk) {
+						status = true;
+					}
 				}
 				else {
                     /*
@@ -233,7 +259,7 @@ public class Sequence extends BerSequence implements JacConstruct
 						if (currentNode instanceof SequenceOf) {
 							((SequenceOf)currentNode).checkAndSetList((BerSequence)generatedNode);
 						} else {
-							((Sequence)currentNode).fillSequenceVariables((BerSequence)generatedNode);
+							((Sequence)currentNode).fillSequenceVariables((BerSequence)generatedNode,checkInitialization);
 							currentNode.true_();	//This is important !
 						}
 					}
@@ -251,7 +277,7 @@ public class Sequence extends BerSequence implements JacConstruct
 				}
 			}
 		}
-		check_OptionalAndInitialized_Status();
+		if (checkInitialization) check_OptionalAndInitialized_Status();
 	}
 	
 	/**
