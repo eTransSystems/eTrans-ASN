@@ -147,7 +147,7 @@ public class Sequence extends BerSequence implements JacConstruct
 	 * @author Fatih Batuk
 	 */
 	public void fillSequenceVariables(BerSequence generatedSeq) throws AsnFatalException {
-		fillSequenceVariables( generatedSeq, true );
+		fillSequenceVariables( generatedSeq, false );
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class Sequence extends BerSequence implements JacConstruct
 	 * @author Rob Baily
 	 */
 	public void copySequenceVariables(BerSequence generatedSeq) throws AsnFatalException {
-		fillSequenceVariables( generatedSeq, false );
+		fillSequenceVariables( generatedSeq, true );
 	}
 
 
@@ -166,7 +166,7 @@ public class Sequence extends BerSequence implements JacConstruct
 	 * @param generatedSeq
 	 * @author Fatih Batuk
 	 */
-	private void fillSequenceVariables(BerSequence generatedSeq, boolean checkInitialization) throws AsnFatalException {
+	private void fillSequenceVariables(BerSequence generatedSeq, boolean copyMode) throws AsnFatalException {
 
 		int[] decodedStatus = new int[size()];
 		boolean status;
@@ -191,7 +191,7 @@ public class Sequence extends BerSequence implements JacConstruct
 					boolean isComposite = generatedNode instanceof BerSequence || generatedNode instanceof BerSet;
 					// figure out whether the initialization status is OK
 					boolean initializationStateOk =  generatedNode.isInitialized || (isComposite && ((BerConstruct)generatedNode).checkInitializedOrNot());
-					if (checkInitialization || initializationStateOk) {
+					if (!copyMode || initializationStateOk) {
 						status = true;
 					}
 				}
@@ -257,18 +257,18 @@ public class Sequence extends BerSequence implements JacConstruct
 					}
 					else if (generatedNode  instanceof  BerSequence) {
 						if (currentNode instanceof SequenceOf) {
-							((SequenceOf)currentNode).checkAndSetList((BerSequence)generatedNode);
+							((SequenceOf)currentNode).checkAndSetList((BerSequence)generatedNode,copyMode);
 						} else {
-							((Sequence)currentNode).fillSequenceVariables((BerSequence)generatedNode,checkInitialization);
+							((Sequence)currentNode).fillSequenceVariables((BerSequence)generatedNode,copyMode);
 							currentNode.true_();	//This is important !
 						}
 					}
 					else if (generatedNode  instanceof  BerSet) {
 						if (currentNode instanceof SetOf) {
-							((SetOf)currentNode).checkAndSetList((BerSet)generatedNode);
+							((SetOf)currentNode).checkAndSetList((BerSet)generatedNode,copyMode);
 							currentNode.true_(); //This is important !
 						} else {
-							((Set)currentNode).fillSetVariables((BerSet)generatedNode);
+							((Set)currentNode).fillSetVariables((BerSet)generatedNode,copyMode);
 							currentNode.true_();		//This is important !
 						}
 					}
@@ -277,7 +277,7 @@ public class Sequence extends BerSequence implements JacConstruct
 				}
 			}
 		}
-		if (checkInitialization) check_OptionalAndInitialized_Status();
+		if (!copyMode) check_OptionalAndInitialized_Status();
 	}
 	
 	/**

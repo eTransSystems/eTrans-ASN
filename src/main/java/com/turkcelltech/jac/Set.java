@@ -102,7 +102,7 @@ public class Set extends BerSet implements JacConstruct
 		    AutoParser parser = new AutoParser(size());
 			BerSet generatedSet = new BerSet(tag, parser, in, this);
 
-			fillSetVariables(generatedSet);
+			fillSetVariables(generatedSet,false);
 			isInitialized = true;
 		}
 		
@@ -115,7 +115,7 @@ public class Set extends BerSet implements JacConstruct
 			AutoParser parser = new AutoParser(size());
 			BerSet generatedSet = new BerSet(tag, parser, in, this);
 
-			fillSetVariables(generatedSet);
+			fillSetVariables(generatedSet,false);
 			isInitialized = true;
 		}
 		
@@ -134,7 +134,7 @@ public class Set extends BerSet implements JacConstruct
 			
 		    BerSet generatedSet = new BerSet(tag, parser,in);
 		    //System.out.println("GeneratedSequence (manual) : \n" + generatedSeq.toString());	
-		    fillSetVariables(generatedSet);
+		    fillSetVariables(generatedSet,false);
 		    isInitialized = true;
 		}
 		
@@ -143,7 +143,7 @@ public class Set extends BerSet implements JacConstruct
 		 * @param generatedSet
 		 * @author Fatih Batuk
 		 */
-		public void fillSetVariables(BerSet generatedSet) throws AsnFatalException {
+		public void fillSetVariables(BerSet generatedSet, boolean copyMode) throws AsnFatalException {
 			
 			int[] decodedStatus = new int[size()];
 			boolean status;
@@ -224,7 +224,7 @@ public class Set extends BerSet implements JacConstruct
 						}	
 						else if (generatedNode  instanceof  BerSequence) {
 							if (currentNode instanceof SequenceOf) {
-								((SequenceOf)currentNode).checkAndSetList((BerSequence)generatedNode);
+								((SequenceOf)currentNode).checkAndSetList((BerSequence)generatedNode,copyMode);
 							} else {
 								((Sequence)currentNode).fillSequenceVariables((BerSequence)generatedNode);
 								((Sequence)currentNode).true_();
@@ -232,9 +232,9 @@ public class Set extends BerSet implements JacConstruct
 						}
 						else if (generatedNode  instanceof  BerSet){
 							if (currentNode instanceof SetOf) {
-								((SetOf)currentNode).checkAndSetList((BerSet)generatedNode);
+								((SetOf)currentNode).checkAndSetList((BerSet)generatedNode,copyMode);
 							} else {
-								((Set)currentNode).fillSetVariables((BerSet)generatedNode);
+								((Set)currentNode).fillSetVariables((BerSet)generatedNode,copyMode);
 								((Set)currentNode).true_();
 							}
 						}
