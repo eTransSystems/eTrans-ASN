@@ -129,7 +129,7 @@ public class SequenceOf	extends	Sequence
 	    AutoParser parser = new AutoParser(size());
 		BerSequence generatedSeq = new BerSequence(tag, parser, in, this);		//powerful constructor :)
 		
-		checkAndSetList(generatedSeq);
+		checkAndSetList(generatedSeq, false);
 	}
 	
 	/**
@@ -141,7 +141,7 @@ public class SequenceOf	extends	Sequence
 		AutoParser parser = new AutoParser(size());
 		BerSequence generatedSeq = new BerSequence(tag, parser, in, this);		//powerful constructor :)
 		
-		checkAndSetList(generatedSeq);
+		checkAndSetList(generatedSeq, false);
 	}
 	
 	/**
@@ -161,7 +161,7 @@ public class SequenceOf	extends	Sequence
 		
 	   BerSequence generatedSeq = new BerSequence(tag, parser,in);
 	   
-	   checkAndSetList(generatedSeq);
+	   checkAndSetList(generatedSeq, false);
 	}
 
 	
@@ -201,25 +201,29 @@ public class SequenceOf	extends	Sequence
 		}
 	}
 	
-	protected void checkAndSetList(BerSequence generatedSeq) {
+	protected void checkAndSetList(BerSequence generatedSeq, boolean copyMode) {
         // some classes can directly extend the primitives but we want to cast them to their real
         // class if they are not one of the basic types in this package.
 		if(this.type==Tag.PrimitiveType && componentType.getPackage().equals(PRIMITIVE_TYPE_PACKAGE)) {
 			 setList(generatedSeq.getList());
 		 }
 		 else {
-			 castSequenceOfContent(generatedSeq);
+			 castSequenceOfContent(generatedSeq, copyMode);
 		 }
 	}
 	
-	private void castSequenceOfContent(BerSequence generatedSeq) {
+	private void castSequenceOfContent(BerSequence generatedSeq, boolean copyMode) {
 		if(generatedSeq.size() != 0) {
 			try {
 				if(type==Tag.SequenceType) {
 					for(int i=0; i<generatedSeq.size(); i++) {
 						Constructor cons = componentType.getConstructor();
 						Sequence element = (Sequence)cons.newInstance();
-						element.fillSequenceVariables((BerSequence)generatedSeq.get(i));
+						if (copyMode) {
+							element.copySequenceVariables((BerSequence) generatedSeq.get(i));
+						} else {
+							element.fillSequenceVariables((BerSequence)generatedSeq.get(i));
+						}
 						this.addElement(element);
 						this.true_();	////important
 					}
@@ -228,7 +232,7 @@ public class SequenceOf	extends	Sequence
 					for(int i=0; i<generatedSeq.size(); i++) {
 						Constructor cons = componentType.getConstructor();
 						Set element = (Set)cons.newInstance();
-						element.fillSetVariables((BerSet)generatedSeq.get(i));
+						element.fillSetVariables((BerSet)generatedSeq.get(i),copyMode);
 						this.addElement(element);
 						this.true_();	//important
 					}

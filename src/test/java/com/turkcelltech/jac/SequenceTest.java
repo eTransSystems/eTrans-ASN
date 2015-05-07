@@ -4,9 +4,7 @@ import com.chaosinmotion.asn1.BerInputStream;
 import com.chaosinmotion.asn1.BerNode;
 import com.chaosinmotion.asn1.BerOutputStream;
 import com.etrans2020.semi.ServiceRequest;
-import com.etranssystems.asn1.generated.dsrc.GeoRegion;
-import com.etranssystems.asn1.generated.dsrc.Position3D;
-import com.etranssystems.asn1.generated.dsrc.VehicleSituationStatus;
+import com.etranssystems.asn1.generated.dsrc.*;
 import junit.framework.TestCase;
 import org.apache.commons.codec.binary.Hex;
 
@@ -110,10 +108,25 @@ public class SequenceTest extends TestCase {
         assertEquals(false, vehicleSituationStatus.tirePressure.isInitialized);
 
         VehicleSituationStatus vehicleSituationStatus2 = new VehicleSituationStatus();
-        vehicleSituationStatus2.copySequenceVariables( vehicleSituationStatus );
+        vehicleSituationStatus2.copySequenceVariables(vehicleSituationStatus);
 
         assertEquals(true, vehicleSituationStatus2.lights.isInitialized);
         assertEquals(false, vehicleSituationStatus2.tirePressure.isInitialized);
+    }
+
+    public void testCopySequenceVariablesWithNestedSequenceOf() throws Exception {
+        Approach approach = new Approach();
+        approach.id.setValue( 7 );
+        VehicleReferenceLane vehicleReferenceLane = new VehicleReferenceLane();
+        vehicleReferenceLane.laneNumber.setValue( 8 );
+        approach.drivingLanes.addElement(vehicleReferenceLane);
+        assertFalse(vehicleReferenceLane.connectsTo.isInitialized );
+        assertEquals("300A800107A1053003800108", getHexEncodedString(approach));
+
+        Approach approach2 = new Approach();
+        approach2.copySequenceVariables(approach);
+        assertFalse( approach2.drivingLanes.getElement(0).connectsTo.isInitialized );
+        assertEquals("300A800107A1053003800108", getHexEncodedString(approach2));
     }
 
     public void testEncodeSequence() throws Exception {

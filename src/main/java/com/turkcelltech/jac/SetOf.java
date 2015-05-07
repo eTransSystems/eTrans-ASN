@@ -123,7 +123,7 @@ public class SetOf extends Set
 		AutoParser parser = new AutoParser(size());
 		BerSet generatedSet = new BerSet(tag, parser, in, this);	//powerful constructor :)
 		
-		checkAndSetList(generatedSet);
+		checkAndSetList(generatedSet,false);
 	}
 	
 	/**
@@ -134,7 +134,7 @@ public class SetOf extends Set
 	public void readElement(int tag, BerInputStream in) throws IOException {
 		AutoParser parser = new AutoParser(size());
 		BerSet generatedSet = new BerSet(tag, parser, in, this);	//powerful constructor :)
-		checkAndSetList(generatedSet);
+		checkAndSetList(generatedSet,false);
 	}
 	
 	/**
@@ -152,7 +152,7 @@ public class SetOf extends Set
 		
 	   BerSet generatedSet = new BerSet(tag, parser,in);
 	   
-	   checkAndSetList(generatedSet);
+	   checkAndSetList(generatedSet,false);
 	}
 	
 	public void setComponentType(Object value) {
@@ -190,16 +190,16 @@ public class SetOf extends Set
 		}		
 	}	
 	
-	protected void checkAndSetList(BerSet generatedSet) {
+	protected void checkAndSetList(BerSet generatedSet, boolean copyMode) {
 		 if(this.type==Tag.PrimitiveType) {
 			   setList(generatedSet.getList());	
 			 }
 			 else {
-				 castSetOfContent(generatedSet);
+				 castSetOfContent(generatedSet,copyMode);
 			}
 	}
 	
-	private void castSetOfContent(BerSet generatedSet) {
+	private void castSetOfContent(BerSet generatedSet, boolean copyMode) {
 		if(generatedSet.size() != 0) {
 			try {
 				if(type==Tag.SequenceType) {
@@ -215,7 +215,7 @@ public class SetOf extends Set
 					for(int i=0; i<generatedSet.size(); i++) {
 						Constructor cons = componentType.getConstructor();
 						Set element = (Set)cons.newInstance();
-						element.fillSetVariables((BerSet)generatedSet.get(i));
+						element.fillSetVariables((BerSet)generatedSet.get(i),copyMode);
 						this.addElement(element);
 						this.true_();	//important
 					}
