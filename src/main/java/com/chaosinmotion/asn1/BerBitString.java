@@ -154,7 +154,8 @@ public class BerBitString extends JacNode
 
     public String toString()
     {
-        return "BerBitString(" + Tag.toString(getTag()) + ")=" + fValue.toString();
+        return "BerBitString(" + Tag.toString(getTag()) + ")=" +
+                (fValue == null ? fValue : fValue.toString());
     }
     
     /**
