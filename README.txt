@@ -20,5 +20,5 @@ To run the parser on a set of ASN definitions to the following:
 - Command line flags:
   -d The directory where generated files are created.
   -p The package name for generated classes.
-You should now have generated classes that can be incldued in your project
+You should now have generated classes that can be included in your project
 along with the runtime.
