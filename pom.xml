@@ -3,7 +3,7 @@
 
   <groupId>com.etranssystems</groupId>
   <artifactId>asn-library</artifactId>
-  <version>1.5-SNAPSHOT</version>
+  <version>1.5</version>
   <packaging>jar</packaging>
 
   <name>asn-library</name>
@@ -16,6 +16,17 @@
   </properties>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>external.atlassian.jgitflow</groupId>
