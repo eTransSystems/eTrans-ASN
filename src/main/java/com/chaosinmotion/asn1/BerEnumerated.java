@@ -106,7 +106,7 @@ public class BerEnumerated extends JacNode
              BerOutputStream tmp = new BerOutputStream(baos,stream.getEncodingMethod());
              
              tmp.writeBerTag(Tag.ENUMERATED);
-             tmp.writeInteger(fValue);
+             tmp.writeUnsignedInteger(fValue);
              
              tmp.close();
              baos.close();
@@ -117,7 +117,7 @@ public class BerEnumerated extends JacNode
     	}
     	else {
     		stream.writeBerTag(getTag());
-    		stream.writeInteger(fValue);
+            stream.writeUnsignedInteger(fValue);
     	}
     }
     
