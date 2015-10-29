@@ -342,23 +342,8 @@ public class BerOutputStream extends FilterOutputStream
         writeBerLength(length);
         writeBerInteger(value,length);
     }
-
-
-    /**
-     * Write a BER unsigned integer value out to the output stream, along with the length
-     * @param value
-     * @throws IOException
-     * @see com.chaosinmotion.asn1.io.Asn1OutputStream#writeInteger(long)
-     */
-    public void writeUnsignedInteger(long value) throws IOException
-    {
-        int length;
-
-        length = calcBerUnsignedIntegerLength(value);
-        writeBerLength(length);
-        writeBerInteger(value,length);
-    }
-
+    
+    
     /**
      * Internal routine copies the specified number of bytes to the output stream.
      * @param stream
