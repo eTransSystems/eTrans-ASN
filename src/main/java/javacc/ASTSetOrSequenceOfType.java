@@ -10,6 +10,7 @@ public class ASTSetOrSequenceOfType extends SimpleNode {
 	public static final int SEQUENCE_OF = 0;
 	public static final int SET_OF = 1;
 	protected int type;
+    private String className;
 
 	protected void
 	setType(int seq)
@@ -51,6 +52,19 @@ public class ASTSetOrSequenceOfType extends SimpleNode {
             // replace the contents
             line.setLength(0);
             line.append(left + elementType + right);
+            returnValue = true;
+        }
+        if (directiveName.equals("innerclass"))    // create an inner class since we have something unnamed
+        {
+            line.setLength(0);
+            SimpleNode n = getElementContainer();
+            // we will only generate an inner class if we are not using a defined type
+            if (n != null) {
+                // the actual element to write is the child of the built in type
+                String elementClassName = getElementType();
+                n.writeInnerClass(outputStream, elementClassName);
+                line.append( "// end of inner class definition");
+            }
             returnValue = true;
         }
         return returnValue;
@@ -114,6 +128,8 @@ public class ASTSetOrSequenceOfType extends SimpleNode {
         {
             templateName = "sequenceof";
         }
+        // save the class name for later
+        className = name;
         generateClass( name, templateName );
 	}
 
@@ -129,7 +145,8 @@ public class ASTSetOrSequenceOfType extends SimpleNode {
 			if(n instanceof ASTBuiltinType)
 			{
 				ASTBuiltinType et = (ASTBuiltinType)n;
-				eType = et.getClassName();
+                // for built in types we need to create an inner class
+                eType = className + "Class";
 				eType = eType.replace('-', '_');
 				return eType;
 			}

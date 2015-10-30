@@ -42,4 +42,6 @@ public class @name@ extends SequenceOf
 	public @elementtype@ getElement( int index ) {
 	    return (@elementtype@)get( index );
 	}
+
+	@innerclass@
 }

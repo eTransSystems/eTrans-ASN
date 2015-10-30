@@ -1,0 +1,27 @@
+ITIS DEFINITIONS AUTOMATIC TAGS::= BEGIN
+
+-- DF_ITIS-Codes_And_Text (Desc Name) Record 8
+-- From source: Adopted SAE J2540-2  (ITIS Phrases), March 2002
+ITIScodesAndText ::=  SEQUENCE (SIZE(1..100)) OF SEQUENCE {
+  item CHOICE    {
+       itis ITIScodes,
+       text ITIStext
+       } -- # UNTAGGED
+  }
+
+DataFrames ::= SEQUENCE (SIZE(1..8)) OF SEQUENCE {
+      -- Part I, Frame header
+      frameType   TravelerInfoType  -- (enum, advisory or road sign)
+}
+
+TravelerInformation ::=  SEQUENCE {
+   msgID           DSRCmsgID,
+   dataFrames SEQUENCE (SIZE(1..8)) OF SEQUENCE {
+
+      -- Part I, Frame header
+      frameType   TravelerInfoType  -- (enum, advisory or road sign)
+    }
+}
+
+END
+-- End of the ITIS module.
