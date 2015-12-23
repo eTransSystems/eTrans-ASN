@@ -390,6 +390,7 @@ class SimpleNode implements Node {
             for (ASTElementType et : elementList) {
                 String eName;
                 String eType = et.getClassName();
+                int tagNumber = et.getTagNumber();
                 if (eType != null) { // could be null if this is a placeholder, like ...
                     eName = et.getName();
                     eName = eName.replace('-', '_');
@@ -408,7 +409,9 @@ class SimpleNode implements Node {
                     // tag number
                     // this seems to be required for it to work as expected
                     // assuming that method defines tagNumber value for use
-                    decs.addElement(new String("\t\t" + eName + ".setTagNumber( tagNumber ++ );"));
+                   // decs.addElement(new String("\t\t" + eName + ".setTagNumber( tagNumber ++ );"));
+                    //Modify by Mark, change tage number to asn.1 file defined number
+                    decs.addElement(new String("\t\t" + eName + ".setTagNumber(" + tagNumber + ");"));
 
                     // tagging method
                     if (et.isTagged() != true)

@@ -5,6 +5,7 @@
  */
 
 import com.turkcelltech.jac.*;
+import com.chaosinmotion.asn1.Tag;
 
 public class @name@ extends Sequence
 {
