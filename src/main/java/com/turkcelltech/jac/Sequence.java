@@ -213,7 +213,7 @@ public class Sequence extends BerSequence implements JacConstruct
 				//continue if status is OK
 				if (status) {
 					
-					if(currentNode instanceof Choice) {
+					while(currentNode instanceof Choice) {
 						Choice chc = (Choice)currentNode;
 						chc.true_();  	//this is important
 						generatedNode = ((BerSequence)generatedNode).get(0);
