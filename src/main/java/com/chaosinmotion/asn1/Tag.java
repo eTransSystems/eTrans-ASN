@@ -95,6 +95,7 @@ public class Tag
     public static final int OBJECTID = 0x06;
     public static final int REAL = 0x09;
     public static final int ENUMERATED = 0x0A;
+    public static final int UTF8STRING = 0x0C;
     public static final int SEQUENCE = 0x10;
     public static final int SET = 0x11;
     public static final int NUMERICSTRING = 0x12;

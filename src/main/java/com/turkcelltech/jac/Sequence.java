@@ -213,7 +213,7 @@ public class Sequence extends BerSequence implements JacConstruct
 				//continue if status is OK
 				if (status) {
 					
-					if(currentNode instanceof Choice) {
+					while(currentNode instanceof Choice) {
 						Choice chc = (Choice)currentNode;
 						chc.true_();  	//this is important
 						generatedNode = ((BerSequence)generatedNode).get(0);
@@ -252,6 +252,9 @@ public class Sequence extends BerSequence implements JacConstruct
 					else if (generatedNode instanceof BerPrintableString) {
 						((PrintableString)currentNode).setValue ( ((BerPrintableString)generatedNode).getValue() );
 					}
+					else if (generatedNode instanceof BerUtf8String) {
+                        ((UTF8String)currentNode).setValue ( ((BerUtf8String)generatedNode).getValue() );
+                    }
 					else if (generatedNode instanceof BerUTCTime) {
 						((UTCTime)currentNode).setValue ( ((BerUTCTime)generatedNode).getValue() );
 					}
