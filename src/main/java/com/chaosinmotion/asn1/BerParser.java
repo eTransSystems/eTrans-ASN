@@ -148,6 +148,9 @@ public abstract class BerParser
             case Tag.GENERALSTRING:
             case Tag.GENERALSTRING | Tag.CONSTRUCTED:
                 return new BerGeneralString(tag,stream);
+            case Tag.UTF8STRING:
+            case Tag.UTF8STRING | Tag.CONSTRUCTED:
+                return new BerUtf8String(tag,stream);
             case Tag.UTCTIME:
             case Tag.UTCTIME | Tag.CONSTRUCTED:
                 return new BerUTCTime(tag,stream);
